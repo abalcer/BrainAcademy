@@ -29,7 +29,7 @@ public class Main {
     }
 
     private static void example1() {
-        System.out.println("  ***   *   *   *  *  ");
+        System.out.println("  ***   *   *   *   *  ");
         System.out.println("    * *   * *   * *   *");
         System.out.println("    * *   * *   * *   *");
         System.out.println("*   * *****  * *  *****");
