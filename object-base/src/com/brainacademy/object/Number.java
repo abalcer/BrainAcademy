@@ -1,7 +1,7 @@
 package com.brainacademy.object;
 
 public class Number {
-    private final int val;
+    private int val;
 
     public Number(int val) {
         this.val = val;
@@ -41,5 +41,24 @@ public class Number {
         }
 
         return digits;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (! (o instanceof Number)) {
+            return false;
+        }
+
+        Number number = (Number) o;
+        return val == number.val;
+    }
+
+
+    public static Number add(Number n1, Number n2) {
+        return new Number(n1.val + n2.val);
     }
 }
