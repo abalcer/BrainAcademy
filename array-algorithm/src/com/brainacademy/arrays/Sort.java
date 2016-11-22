@@ -1,6 +1,6 @@
 package com.brainacademy.arrays;
 
-public class Main {
+public class Sort {
 
     public static final int TOTAL_ELEMENTS = 100000;
 
@@ -38,9 +38,12 @@ public class Main {
     }
 
     public static void quickSort(int[] array, int low, int high) {
-        int i = low, j = high;
+        int i = low;
+        int j = high;
         // Get the pivot element from the middle of the list
         int pivot = array[low + (high - low) / 2];
+        System.out.println("low: " + low + ", hight: " + high + ", pivot: " + pivot);
+        print(array);
 
         // Divide into two lists
         while (i <= j) {
@@ -91,30 +94,31 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int a[] = new int[TOTAL_ELEMENTS];
-        for (int i = 0; i < a.length; i++) {
-            a[i] = (int) (Math.random() * Integer.MAX_VALUE);
-        }
+//        int a[] = new int[TOTAL_ELEMENTS];
+//        for (int i = 0; i < a.length; i++) {
+//            a[i] = (int) (Math.random() * Integer.MAX_VALUE);
+//        }
+//
+//        long time = System.currentTimeMillis();
+//        quickSort(a.clone(), 0, a.length - 1);
+//        double timeQuickSort = (double) (System.currentTimeMillis() - time) / 1000;
+//        System.out.println("QS: " + timeQuickSort);
+//
+//        time = System.currentTimeMillis();
+//        linerialSort(a.clone());
+//        double timeLinerialSort = (double) (System.currentTimeMillis() - time) / 1000;
+//        System.out.println("LS: " + timeLinerialSort);
+//
+//        time = System.currentTimeMillis();
+//        bubbleSort(a.clone());
+//        double timeBubbleSort = (double) (System.currentTimeMillis() - time) / 1000;
+//        System.out.println("BS: " + timeBubbleSort);
 
-        long time = System.currentTimeMillis();
-        quickSort(a.clone(), 0, a.length - 1);
-        double timeQuickSort = (double) (System.currentTimeMillis() - time) / 1000;
-        System.out.println("QS: " + timeQuickSort);
 
-        time = System.currentTimeMillis();
-        linerialSort(a.clone());
-        double timeLinerialSort = (double) (System.currentTimeMillis() - time) / 1000;
-        System.out.println("LS: " + timeLinerialSort);
-
-        time = System.currentTimeMillis();
+        int a[] = new int[]{ 5, 6, 3, 4, 2, 1 };
+        quickSort(a, 0, a.length - 1);
         bubbleSort(a.clone());
-        double timeBubbleSort = (double) (System.currentTimeMillis() - time) / 1000;
-        System.out.println("BS: " + timeBubbleSort);
-
-
-
-        //int a[] = new int[]{ 5, 6, 3, 4, 2, 1 };
-        //print(a);
+        print(a);
 
     }
 }
