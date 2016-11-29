@@ -6,7 +6,7 @@ public class ArtistDao {
     private Artist[] artists = new Artist[0];
 
     public void add(Artist artist) {
-        
+
     }
 
     public void remove(Artist artist) {

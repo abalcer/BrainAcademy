@@ -35,7 +35,6 @@ public class Album {
         }
     }
 
-
     public void setReleaseAt(long releaseAt) {
         this.releaseAt = new Date(releaseAt);
     }
