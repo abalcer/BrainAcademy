@@ -30,35 +30,6 @@ public class Main {
 
 
     public static void main(String[] args) {
-
-        ArtistDao artistDao = new ArtistDao();
-
-        //InputStream in = System.in;
-        //PrintStream suggestionOut = System.out;
-        InputStream in = new ByteArrayInputStream(String.join("\n", data).getBytes());
-        PrintStream suggestionOut = new PrintStream(new ByteArrayOutputStream(1024));
-
-        Scanner scanner = new Scanner(in);
-
-        System.out.print("Total directors: ");
-        int totalDirectors = scanner.nextInt();
-        scanner.nextLine();
-
-        Director[] directors = new Director[totalDirectors];
-        for (int i = 0; i < directors.length; i++) {
-            suggestionOut.println("Input director № " + i);
-
-            suggestionOut.println("Enter Name: ");
-            Director director = new Director(scanner.nextLine());
-
-            suggestionOut.println("Enter Phone: ");
-            director.setPhone(scanner.nextLine());
-
-            suggestionOut.println("Enter Email: ");
-            director.setEmail(scanner.nextLine());
-
-public static void main(String[] args) {
-
         InputStream in = System.in;
         //InputStream in = new ByteArrayInputStream(String.join("\n", data).getBytes());
         //PrintStream suggestionOut = new PrintStream(new ByteArrayOutputStream(1024));
