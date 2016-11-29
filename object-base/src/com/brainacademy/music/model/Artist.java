@@ -1,5 +1,7 @@
 package com.brainacademy.music.model;
 
+import java.util.Arrays;
+
 public class Artist {
     private String name;
     private String about;
@@ -49,15 +51,13 @@ public class Artist {
         return albums;
     }
 
-//    public void setAlbums(Album[] albums) {
-//        this.albums = albums;
-//    }
-
     public void setAlbums(Album... albums) {
         this.albums = albums;
     }
 
-
+    public static int compare(Artist a1, Artist a2) {
+        return a1.getName().compareTo(a2.getName());
+    }
 
     public String toString() {
         return "Artist: " + name + "\n"

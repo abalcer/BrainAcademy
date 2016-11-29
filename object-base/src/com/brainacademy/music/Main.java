@@ -1,56 +1,122 @@
 package com.brainacademy.music;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.PrintStream;
+import java.util.Scanner;
+
+import com.brainacademy.music.dao.ArtistDao;
+import com.brainacademy.music.model.Artist;
+import com.brainacademy.music.model.Director;
+
 public class Main {
+    static final String[] data = {
+            "3",
+            "Анастасия Драпеко", "123-45-67", "drapeko@yandex.ru",
+            "Денис Орлов", "873-12-23", "pr.orlov@gmail.com",
+            "Лиза Феофановаs", "542-78-67", "liza_velvet@mail.ru",
+
+            "5",
+            "Маша Гойя", "1",
+            "Вера Брежнева", "2",
+            "Ёлка", "1",
+            "Группа КЛЮЧИ", "3",
+            "Альбина Джанабаева", "1",
+
+            "Маша Гойя",
+            ""
+    };
+
+
     public static void main(String[] args) {
-        Artist a1 = new Artist();
-        a1.setName("Jonh1");
 
-        Album album1 = new Album();
-        album1.setTitle("album1");
-        album1.setReleaseAt(2010, 10, 25);
+        ArtistDao artistDao = new ArtistDao();
 
-        Album album2 = new Album();
-        album2.setTitle("album2");
-        album2.setReleaseAt(new Date());
+        //InputStream in = System.in;
+        //PrintStream suggestionOut = System.out;
+        InputStream in = new ByteArrayInputStream(String.join("\n", data).getBytes());
+        PrintStream suggestionOut = new PrintStream(new ByteArrayOutputStream(1024));
 
-        Album album3 = new Album();
-        album3.setTitle("album3");
-        album3.setReleaseAt(new Date());
+        Scanner scanner = new Scanner(in);
 
-        album3.setReleaseAt((Date) null);
+        System.out.print("Total directors: ");
+        int totalDirectors = scanner.nextInt();
+        scanner.nextLine();
+
+        Director[] directors = new Director[totalDirectors];
+        for (int i = 0; i < directors.length; i++) {
+            suggestionOut.println("Input director № " + i);
+
+            suggestionOut.println("Enter Name: ");
+            Director director = new Director(scanner.nextLine());
+
+            suggestionOut.println("Enter Phone: ");
+            director.setPhone(scanner.nextLine());
+
+            suggestionOut.println("Enter Email: ");
+            director.setEmail(scanner.nextLine());
+
+            directors[i] = director;
+        }
+
+        suggestionOut.print("Total artists: ");
+        int totalArtists = scanner.nextInt();
+        scanner.nextLine();
+
+        Artist[] artists = new Artist[totalArtists];
+        for (int i = 0; i < artists.length; i++) {
+            Artist artist = new Artist();
+
+            suggestionOut.println("Input artists № " + i);
+            suggestionOut.println("Enter Name: ");
+            artist.setName(scanner.nextLine());
+
+            suggestionOut.println("Choose Director: ");
+            for (int j = 0; j < directors.length; j++) {
+                suggestionOut.println((j + 1) + ". " + directors[j]);
+            }
+            int k = scanner.nextInt() - 1;
+            scanner.nextLine();
+
+            artist.setDirector(directors[k]);
+            artists[i] = artist;
+        }
 
 
-        a1.setAlbums(album1);
+        System.out.println("--------- Searching ----------");
 
-        Artist a2 = new Artist();
-        a2.setName("Jonh2");
+        suggestionOut.print("Search: ");
+        String name = scanner.nextLine();
 
-        a2.setAlbums(album1, album2);
+        for (int i = 0; i < artists.length; i++) {
+            if(artists[i].getName().equals(name)) {
+                System.out.println(artists[i]);
+            }
+        }
 
-        Artist a3 = new Artist();
-        a3.setName("Jonh3");
+        System.out.println("--------- Sorting ----------");
 
-        a3.setAlbums(album1, album2, album3);
+        String max;
+        int maxIndex;
+        for (int i = 0; i < artists.length; i++) {
+            max = artists[i].getName();
+            maxIndex = i;
 
-        Manager m1 = new Manager();
-        m1.setName("Vasya");
-        m1.setPhone("123-34-56");
+            for (int j = i; j < artists.length; j++) {
+                if (max.compareTo(artists[j].getName()) > 0) {
+                    max = artists[j].getName();
+                    maxIndex = j;
+                }
+            }
 
-        Director d1 = new Director("Petya");
-        d1.setPhone("876-34-56");
-        System.out.println(d1);
-        System.out.println("---------------------------");
+            Artist tmp = artists[i];
+            artists[i] = artists[maxIndex];
+            artists[maxIndex] = tmp;
+        }
 
-        a1.setDirector(d1);
-        a2.setDirector(d1);
-        a3.setDirector(d1);
-
-        a1.setManager(m1);
-        a2.setManager(m1);
-        a3.setManager(m1);
-
-        System.out.println(a1);
-        System.out.println(a2);
-        System.out.println(a3);
+        for (int i = 0; i < artists.length; i++) {
+            System.out.println(artists[i]);
+        }
     }
 }
