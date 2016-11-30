@@ -1,14 +1,12 @@
 package com.brainacademy.music;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.io.PrintStream;
+import java.util.Arrays;
 import java.util.Scanner;
 
-import com.brainacademy.music.dao.ArtistDao;
-import com.brainacademy.music.model.Artist;
+import com.brainacademy.music.dao.DirectorDao;
 import com.brainacademy.music.model.Director;
+import com.brainacademy.music.reader.DirectorConsoleReader;
 
 public class Main {
     static final String[] data = {
