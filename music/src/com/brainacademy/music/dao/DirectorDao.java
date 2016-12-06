@@ -1,11 +1,10 @@
 package com.brainacademy.music.dao;
 
+import com.brainacademy.music.persistence.InMemoryEntityManager;
 import com.brainacademy.music.model.Director;
 
-import java.util.Arrays;
-
 public class DirectorDao {
-    private Director[] directors = new Director[0];
+    private final InMemoryEntityManager entityManager = new InMemoryEntityManager();
 
     /**
      * Добавить нового директора
@@ -13,31 +12,14 @@ public class DirectorDao {
      * @param director
      */
     public void add(Director director) {
-        int idx = indexOf(director);
+        int idx = entityManager.indexOf(director);
 
-        if (idx == -1) {
-            Director[] tmp = new Director[directors.length + 1];
-            tmp[0] = director;
-            for (int i = 1; i < tmp.length; i++) {
-                tmp[i] = directors[i - 1];
-            }
-            directors = tmp;
+        if (idx == - 1) {
+            entityManager.addEntity(director);
         } else {
             update(director);
         }
     }
-
-    public int indexOf(Director director) {
-        int idx = -1;
-        for (int i = 0; i < directors.length; i++) {
-            if (directors[i].getName().equals(director.getName())) {
-                idx = i;
-                break;
-            }
-        }
-        return idx;
-    }
-
 
     /**
      * Вернуть всех директоров
@@ -45,14 +27,24 @@ public class DirectorDao {
      * @return
      */
     public Director[] getAll() {
-        return directors;
+        Object[] entities = entityManager.getAll(Director.class.getSimpleName());
+        if(entities != null) {
+            Director[] directors = new Director[entities.length];
+            for (int i = 0; i < entities.length; i++) {
+                directors[i] = (Director) entities[i];
+            }
+            return directors;
+        } else {
+            return null;
+        }
     }
 
     public void remove(Director director) {
-
+        entityManager.remove(director);
     }
 
     public Director findByName(String name) {
+        Director[] directors = getAll();
         for (int i = 0; i < directors.length; i++) {
             if (directors[i].getName().equals(name)) {
                 return directors[i];
@@ -62,10 +54,6 @@ public class DirectorDao {
     }
 
     public void update(Director director) {
-        int idx = indexOf(director);
-        if(idx != -1) {
-            directors[idx].setEmail(director.getEmail());
-            directors[idx].setPhone(director.getPhone());
-        }
+        entityManager.update(director);
     }
 }
