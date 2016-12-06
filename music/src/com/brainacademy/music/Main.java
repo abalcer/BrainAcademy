@@ -1,12 +1,7 @@
 package com.brainacademy.music;
 
-import java.io.InputStream;
-import java.util.Arrays;
-import java.util.Scanner;
-
-import com.brainacademy.music.dao.DirectorDao;
 import com.brainacademy.music.model.Director;
-import com.brainacademy.music.reader.DirectorConsoleReader;
+import com.brainacademy.music.model.Manager;
 
 public class Main {
     static final String[] data = {
@@ -28,84 +23,15 @@ public class Main {
 
 
     public static void main(String[] args) {
-        InputStream in = System.in;
-        //InputStream in = new ByteArrayInputStream(String.join("\n", data).getBytes());
-        //PrintStream suggestionOut = new PrintStream(new ByteArrayOutputStream(1024));
+        Manager manager = new Manager();
+        manager.setName("M1");
 
-        Scanner scanner = new Scanner(in);
+        Director director = new Director();
+        director.setName("D1");
 
-        System.out.print("Total directors: ");
-        int totalDirectors = scanner.nextInt();
-        scanner.nextLine();
+        String name = manager.getName();
+        System.out.println(name);
 
-        DirectorDao directorDao = new DirectorDao();
-        DirectorConsoleReader directorConsoleReader = new DirectorConsoleReader();
-
-        for (int i = 0; i < totalDirectors; i++) {
-            Director director = directorConsoleReader.read();
-            directorDao.add(director);
-        }
-
-        System.out.println(Arrays.toString(directorDao.getAll()));
-
-
-//        suggestionOut.print("Total artists: ");
-//        int totalArtists = scanner.nextInt();
-//        scanner.nextLine();
-//
-//        Artist[] artists = new Artist[totalArtists];
-//        for (int i = 0; i < artists.length; i++) {
-//            Artist artist = new Artist();
-//
-//            suggestionOut.println("Input artists № " + i);
-//            suggestionOut.println("Enter Name: ");
-//            artist.setName(scanner.nextLine());
-//
-//            suggestionOut.println("Choose Director: ");
-//            for (int j = 0; j < directors.length; j++) {
-//                suggestionOut.println((j + 1) + ". " + directors[j]);
-//            }
-//            int k = scanner.nextInt() - 1;
-//            scanner.nextLine();
-//
-//            artist.setDirector(directors[k]);
-//            artists[i] = artist;
-//        }
-//
-//
-//        System.out.println("--------- Searching ----------");
-//
-//        suggestionOut.print("Search: ");
-//        String name = scanner.nextLine();
-//
-//        for (int i = 0; i < artists.length; i++) {
-//            if (artists[i].getName().equals(name)) {
-//                System.out.println(artists[i]);
-//            }
-//        }
-//
-//        System.out.println("--------- Sorting ----------");
-//
-//        String max;
-//        int maxIndex;
-//        for (int i = 0; i < artists.length; i++) {
-//            max = artists[i].getName();
-//            maxIndex = i;
-//
-//            for (int j = i; j < artists.length; j++) {
-//                if (max.compareTo(artists[j].getName()) > 0) {
-//                    max = artists[j].getName();
-//                    maxIndex = j;
-//                }
-//            }
-//
-//            Artist tmp = artists[i];
-//            artists[i] = artists[maxIndex];
-//            artists[maxIndex] = tmp;
-//        }
-//
-//        for (int i = 0; i < artists.length; i++) {
-//            System.out.println(artists[i]);
-//        }
+        System.out.println(director.getName());
     }
 }

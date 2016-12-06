@@ -16,7 +16,7 @@ public class DirectorConsoleReader {
 
     public Director read() {
         out.println("Enter Name: ");
-        Director director = new Director(scanner.nextLine());
+        Director director = new Director();
 
         out.println("Enter Phone: ");
         director.setPhone(scanner.nextLine());

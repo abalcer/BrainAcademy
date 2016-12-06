@@ -6,10 +6,10 @@ import java.util.List;
 public class Atm {
     private double totalAmount;
     private double dailyAmount;
-    private List<Client> clients = new ArrayList<>();
+    private ArrayList<Card> cards = new ArrayList<>();
 
-    public void addClient(Client client) {
-        clients.add(client);
+    public void addCard(Card card) {
+        cards.add(card);
     }
 
     public double getTotalAmount() {
@@ -28,7 +28,7 @@ public class Atm {
         this.dailyAmount = dailyAmount;
     }
 
-    public boolean contains(Client client) {
-        return clients.contains(client);
+    public boolean isCardValid(Card card) {
+        return cards.contains(card);
     }
 }

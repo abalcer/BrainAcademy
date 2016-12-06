@@ -9,13 +9,12 @@ import com.brainacademy.atm.model.Client;
 
 public class AtmService {
     private final Atm atm = new Atm();
-    private final Map<Card, Double> dailyCash = new HashMap<>();
+    private final HashMap<Card, Double> dailyCash = new HashMap<>();
 
     private Card currentCard;
 
-    public boolean verifyClient(Client client, int pin) {
-        Card card = client.getCard();
-        if (atm.contains(client) && card.checkPin(pin)) {
+    public boolean start(Card card, int pin) {
+        if (atm.isCardValid(card) && card.checkPin(pin)) {
             currentCard = card;
             return true;
         } else {
@@ -23,26 +22,26 @@ public class AtmService {
         }
     }
 
-    public double getCash(Card card, double cash) {
+    public double getCash(double cash) {
         double withdrawСash = cash;
 
-        if (currentCard != null && currentCard.equals(card)) {
+        if (currentCard != null) {
             double totalAmount = atm.getTotalAmount();
             if (withdrawСash > totalAmount) {
                 withdrawСash = totalAmount;
             }
 
-            if (currentCard.getBalance() <= cash) {
+            if (currentCard.getBalance() <= withdrawСash) {
                 return 0;
             }
 
-            double totalDailyCash = dailyCash.containsKey(card) ? dailyCash.get(card) : 0;
+            double totalDailyCash = dailyCash.containsKey(currentCard) ? dailyCash.get(currentCard) : 0;
             if ((totalDailyCash + withdrawСash) > atm.getDailyAmount()) {
                 withdrawСash = atm.getDailyAmount() - totalDailyCash;
             }
 
             currentCard.take(withdrawСash);
-            dailyCash.put(card, totalDailyCash + withdrawСash);
+            dailyCash.put(currentCard, totalDailyCash + withdrawСash);
             atm.setTotalAmount(totalAmount - withdrawСash);
 
             return withdrawСash;
@@ -64,12 +63,7 @@ public class AtmService {
         currentCard = null;
     }
 
-    public boolean addClient(Client client) {
-        if (client.getCard() == null) {
-            return false;
-        } else {
-            atm.addClient(client);
-            return true;
-        }
+    public void addCard(Card card) {
+        atm.addCard(card);
     }
 }
