@@ -13,6 +13,11 @@ public class AtmService {
 
     private Card currentCard;
 
+    public AtmService(double total, double daily) {
+        atm.setTotalAmount(total);
+        atm.setDailyAmount(daily);
+    }
+
     public boolean start(Card card, int pin) {
         if (atm.isCardValid(card) && card.checkPin(pin)) {
             currentCard = card;
@@ -55,8 +60,8 @@ public class AtmService {
         return 0;
     }
 
-    public double getBalance(Card card) {
-        return card.getBalance();
+    public double getBalance() {
+        return currentCard.getBalance();
     }
 
     public void reset() {

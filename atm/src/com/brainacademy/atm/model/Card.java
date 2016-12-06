@@ -2,8 +2,16 @@ package com.brainacademy.atm.model;
 
 public class Card {
     private long number;
-    private int pin;
+    private final int pin;
     private double balance;
+
+    public Card() {
+        pin = (int) (Math.random() * Integer.MAX_VALUE);
+    }
+
+    public Card(int pin) {
+        this.pin = pin;
+    }
 
     public boolean checkPin(int pin) {
         return this.pin == pin;
