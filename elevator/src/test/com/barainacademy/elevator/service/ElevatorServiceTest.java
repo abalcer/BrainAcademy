@@ -1,10 +1,11 @@
 package com.barainacademy.elevator.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import org.junit.Before;
+import org.junit.Test;
 
 import com.barainacademy.elevator.model.Elevator;
 import com.barainacademy.elevator.model.House;
@@ -14,7 +15,7 @@ public class ElevatorServiceTest {
     private ElevatorService elevatorService;
     private House house;
 
-    @BeforeEach
+    @Before
     public void setUp() {
         house = new House();
         house.setTotalFloors(10);
