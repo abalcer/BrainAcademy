@@ -3,6 +3,7 @@ package com.barainacademy.elevator.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -26,21 +27,7 @@ public class ElevatorServiceTest {
 
     @Test
     public void callElevator_SuccessTest() {
-        Elevator elevator1 = new Elevator();
-        elevator1.setId(1);
-        elevator1.setFloor(1);
-
-        Elevator elevator2 = new Elevator();
-        elevator2.setId(2);
-        elevator2.setFloor(2);
-
-        Elevator elevator3 = new Elevator();
-        elevator3.setId(3);
-        elevator3.setFloor(3);
-
-        house.addElevator(elevator1);
-        house.addElevator(elevator2);
-        house.addElevator(elevator3);
+        initElevators();
 
         int floor = 5;
         Elevator elevator = elevatorService.callElevator(floor);
@@ -48,6 +35,14 @@ public class ElevatorServiceTest {
 
         assertEquals(3, elevator.getId());
         assertEquals(floor, elevator.getFloor());
+    }
+
+    @Test
+    public void callElevator_FailedTest() {
+        initElevators();
+
+        Elevator elevator = elevatorService.callElevator(100);
+        assertNull(elevator);
     }
 
     @Test
@@ -76,5 +71,23 @@ public class ElevatorServiceTest {
         int floor = elevatorService.moveTo(elevator, house.getTotalFloors() + 1);
         assertEquals(- 1, floor);
         assertEquals(oldFloor, elevator.getFloor());
+    }
+
+    private void initElevators() {
+        Elevator elevator1 = new Elevator();
+        elevator1.setId(1);
+        elevator1.setFloor(1);
+
+        Elevator elevator2 = new Elevator();
+        elevator2.setId(2);
+        elevator2.setFloor(2);
+
+        Elevator elevator3 = new Elevator();
+        elevator3.setId(3);
+        elevator3.setFloor(3);
+
+        house.addElevator(elevator1);
+        house.addElevator(elevator2);
+        house.addElevator(elevator3);
     }
 }
