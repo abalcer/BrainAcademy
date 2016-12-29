@@ -5,12 +5,12 @@ public class User {
     protected String phone;
     protected String email;
 
-    private String position;
+    private UserPosition position;
 
     public User() {
     }
 
-    public User(String position) {
+    public User(UserPosition position) {
         this.position = position;
     }
 
@@ -38,7 +38,7 @@ public class User {
         this.name = name;
     }
 
-    public String getPosition() {
+    public UserPosition getPosition() {
         return position;
     }
 }

@@ -3,7 +3,7 @@ package com.brainacademy.music.model;
 public class Manager extends User {
 
     public Manager() {
-        super("manager");
+        super(UserPosition.MANAGER);
     }
 
     public String getName() {

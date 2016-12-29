@@ -1,10 +1,12 @@
 package com.brainacademy.music.dao;
 
-import com.brainacademy.music.persistence.InMemoryEntityManager;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.brainacademy.music.model.Director;
 
 public class DirectorDao {
-    private final InMemoryEntityManager entityManager = new InMemoryEntityManager();
+    List<Director> directors = new ArrayList<>();
 
     /**
      * Добавить нового директора
@@ -12,10 +14,10 @@ public class DirectorDao {
      * @param director
      */
     public void add(Director director) {
-        int idx = entityManager.indexOf(director);
+        int idx = directors.indexOf(director);
 
         if (idx == - 1) {
-            entityManager.addEntity(director);
+            directors.add(director);
         } else {
             update(director);
         }
@@ -27,20 +29,11 @@ public class DirectorDao {
      * @return
      */
     public Director[] getAll() {
-        Object[] entities = entityManager.getAll(Director.class.getSimpleName());
-        if(entities != null) {
-            Director[] directors = new Director[entities.length];
-            for (int i = 0; i < entities.length; i++) {
-                directors[i] = (Director) entities[i];
-            }
-            return directors;
-        } else {
-            return null;
-        }
+        return directors.toArray(new Director[]{});
     }
 
     public void remove(Director director) {
-        entityManager.remove(director);
+        directors.remove(director);
     }
 
     public Director findByName(String name) {
@@ -54,6 +47,10 @@ public class DirectorDao {
     }
 
     public void update(Director director) {
-        entityManager.update(director);
+        if (directors.contains(director)) {
+            directors.remove(director);
+        }
+
+        directors.add(director);
     }
 }
