@@ -32,8 +32,8 @@ public class FutureUsageTest {
             list.add(new Calc(i, i + 1));
         }
 
-        //Запускаем задачи.
         try {
+            //Запускаем задачи.
             List<Future<Double>> futures = EXECUTOR_SERVICE.invokeAll(list);
             for (Future<Double> f : futures) {
                 System.out.println("Result: " + f.get());
@@ -43,9 +43,11 @@ public class FutureUsageTest {
         }
 
 
+        //Даем команду на завершение
         EXECUTOR_SERVICE.shutdown();
 
         try {
+            //Ждем 10 сек., пока сервис не остановится
             EXECUTOR_SERVICE.awaitTermination(10, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -65,6 +67,7 @@ public class FutureUsageTest {
         public Double call() throws Exception {
             System.out.println("Start calculation");
             TimeUnit.SECONDS.sleep(1);
+
             return a * b;
         }
     }
