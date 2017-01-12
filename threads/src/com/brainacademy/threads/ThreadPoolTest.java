@@ -20,8 +20,8 @@ public class ThreadPoolTest {
             });
         }
 
-        EXECUTOR_SERVICE.awaitTermination(10, TimeUnit.SECONDS);
         EXECUTOR_SERVICE.shutdown();
+        EXECUTOR_SERVICE.awaitTermination(10, TimeUnit.SECONDS);
 
         System.out.println("Finish");
     }
