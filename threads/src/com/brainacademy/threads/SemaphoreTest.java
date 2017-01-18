@@ -4,9 +4,11 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
 public class SemaphoreTest {
-    private static final Semaphore semaphore = new Semaphore(2);
+    private static final Semaphore semaphore = new Semaphore(0);
 
     public static void main(String[] args) {
+
+        semaphore.release();
 
         for (int i = 0; i < 10; i++) {
             new Thread(() -> {
@@ -27,6 +29,5 @@ public class SemaphoreTest {
                 }
             }).start();
         }
-
     }
 }
