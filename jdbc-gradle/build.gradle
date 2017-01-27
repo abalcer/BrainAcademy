@@ -1,0 +1,30 @@
+group 'com.brainacademy'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+sourceCompatibility = 1.8
+mainClassName = 'com.brainacademy.jdbc.Main'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.sql2o:sql2o:1.5.4'
+    compile 'mysql:mysql-connector-java:6.0.5'
+}
+
+jar {
+    exclude 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.RSA', 'META-INF/*.MF'
+
+    manifest {
+        attributes 'Main-Class': 'com.brainacademy.jdbc.Main',
+                'Class-Path': configurations.runtime.files.collect { "lib/$it.name" }.join(' ')
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
