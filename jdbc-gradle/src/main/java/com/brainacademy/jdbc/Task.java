@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class Task {
     private long id;
-    private String category;
+    private long categoryId;
     private Date dueDate;
 
     public void setId(long id) {
@@ -15,12 +15,12 @@ public class Task {
         return id;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public long getCategoryId() {
+        return categoryId;
     }
 
-    public String getCategory() {
-        return category;
+    public void setCategoryId(long categoryId) {
+        this.categoryId = categoryId;
     }
 
     public void setDueDate(Date dueDate) {

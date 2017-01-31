@@ -14,13 +14,13 @@ public class Main {
     public static void main(String[] args) {
         Sql2o sql2o = new Sql2o(DB_URL, USER, PASS);
         String sql =
-                "SELECT id, category, dueDate " +
+                "SELECT id, categoryId, dueDate " +
                         "FROM Task " +
-                        "WHERE category = :category";
+                        "WHERE categoryId = :categoryId";
 
         try(Connection con = sql2o.open()) {
             List<Task> tasks = con.createQuery(sql)
-                    .addParameter("category", "category1")
+                    .addParameter("categoryId", 1L)
                     .executeAndFetch(Task.class);
 
             System.out.println(Arrays.toString(tasks.toArray()));

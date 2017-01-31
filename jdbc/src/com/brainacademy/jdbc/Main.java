@@ -22,26 +22,26 @@ public class Main {
         PreparedStatement stmt = null;
 
         String sql =
-                "SELECT id, category, dueDate " +
+                "SELECT id, categoryId, dueDate " +
                         "FROM Task " +
-                        "WHERE category = ?";
+                        "WHERE categoryId = ?";
 
         try {
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1, "category1");
+            stmt.setLong(1, 1L);
 
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 Task task = new Task();
                 task.setId(rs.getLong("id"));
-                task.setCategory(rs.getString("category"));
+                task.setCategoryId(rs.getLong("categoryId"));
                 task.setDueDate(rs.getDate("dueDate"));
                 tasks.add(task);
                 System.out.println(task.getId());
-                System.out.println(task.getCategory());
+                System.out.println(task.getCategoryId());
                 System.out.println(task.getDueDate());
             }
             rs.close();
