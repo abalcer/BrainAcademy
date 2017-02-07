@@ -1,0 +1,39 @@
+group 'com.brainacademy'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.google.appengine:gradle-appengine-plugin:+'
+    }
+}
+
+repositories {
+    maven {
+        url 'https://maven-central.storage.googleapis.com'
+    }
+}
+
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'appengine'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+dependencies {
+    appengineSdk 'com.google.appengine:appengine-java-sdk:+'
+
+    providedCompile 'javax.servlet:servlet-api:2.5'
+    compile 'com.google.appengine:appengine:+'
+}
+
+appengine {
+    httpPort = 8090
+    downloadSdk = true
+}

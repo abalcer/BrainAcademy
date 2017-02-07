@@ -1,0 +1,5 @@
+rootProject.name = 'web'
+include 'simple-servlet'
+include 'gae-simple'
+include 'gae-db-app'
+
