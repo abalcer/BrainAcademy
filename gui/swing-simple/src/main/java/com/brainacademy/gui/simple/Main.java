@@ -1,4 +1,4 @@
-package com.brainacademy.gui;
+package com.brainacademy.gui.simple;
 
 import static javax.swing.GroupLayout.Alignment.BASELINE;
 import static javax.swing.GroupLayout.Alignment.LEADING;

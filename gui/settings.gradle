@@ -1,0 +1,4 @@
+rootProject.name = 'gui'
+include 'swing-simple'
+include 'db-app'
+
