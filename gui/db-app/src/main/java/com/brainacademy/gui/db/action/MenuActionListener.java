@@ -11,10 +11,4 @@ public interface MenuActionListener {
     void onShowUserAction(ActionEvent e);
 
     void onEditUserAction(ActionEvent e);
-
-    void onSetSystemLookAndFeel(ActionEvent e);
-
-    void onSetMetalLookAndFeel(ActionEvent e);
-
-    void onSetMotifLookAndFeel(ActionEvent e);
 }

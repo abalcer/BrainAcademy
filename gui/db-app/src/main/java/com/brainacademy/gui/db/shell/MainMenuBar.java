@@ -16,13 +16,7 @@ public class MainMenuBar extends JMenuBar {
         userMenu.add(actions.getEditUsersAction());
         userMenu.add(actions.getDeleteUsersAction());
 
-        JMenu themeMenu = new JMenu(Resource.getString("menu.settings.themes"));
-        themeMenu.add(actions.getMetalLookAndFeelAction());
-        themeMenu.add(actions.getSystemLookAndFeelAction());
-        themeMenu.add(actions.getMotifLookAndFeelAction());
-
         JMenu settingsMenu = new JMenu(Resource.getString("menu.settings"));
-        settingsMenu.add(themeMenu);
 
         this.add(userMenu);
         this.add(settingsMenu);

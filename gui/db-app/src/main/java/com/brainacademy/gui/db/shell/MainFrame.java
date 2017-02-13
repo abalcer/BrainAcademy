@@ -5,21 +5,30 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.*;
 
-import com.brainacademy.gui.db.Application;
 import com.brainacademy.gui.db.action.MenuActionListener;
 import com.brainacademy.gui.db.action.MenuActions;
+import com.brainacademy.gui.db.forms.UserEdit;
+import com.brainacademy.gui.db.forms.listener.UserEditListener;
+import com.brainacademy.gui.db.forms.listener.UserSelectedListener;
 import com.brainacademy.gui.db.forms.UsersForm;
+import com.brainacademy.gui.db.model.User;
+import com.brainacademy.gui.db.service.UserService;
 import com.brainacademy.gui.db.utils.Resource;
 
 
 public class MainFrame extends JFrame
-        implements MenuActionListener {
+        implements MenuActionListener,
+        UserSelectedListener,
+        UserEditListener {
 
     private static final int MIN_WIDTH = 600;
     private static final int MIN_HEIGHT = 400;
-    
+
     private MenuActions menuActions;
     private Container contentPane;
+    private User currentUser;
+
+    private UserService userService = UserService.getInstance();
 
     @Override
     protected void frameInit() {
@@ -42,42 +51,79 @@ public class MainFrame extends JFrame
 
     @Override
     public void onAddUserAction(ActionEvent e) {
-
+        showEditForm(null);
     }
 
     @Override
     public void onDeleteUserAction(ActionEvent e) {
+        int res = JOptionPane.showConfirmDialog(this,
+                Resource.getString("user.delete.message"),
+                Resource.getString("user.delete.title"),
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
 
+        if (res == JOptionPane.YES_OPTION) {
+            userService.delete(currentUser);
+            showAllUsers();
+        }
     }
 
     @Override
     public void onShowUserAction(ActionEvent e) {
-        UsersForm usersForm = new UsersForm();
-        if(contentPane.getComponentCount() > 1) {
-            contentPane.remove(1);
-        }
-        menuActions.getShowUsersAction().setEnabled(false);
-        contentPane.add(usersForm.getUsersPanel(), BorderLayout.CENTER);
-        pack();
+        showAllUsers();
     }
 
     @Override
     public void onEditUserAction(ActionEvent e) {
-
+        showEditForm(currentUser);
     }
 
     @Override
-    public void onSetSystemLookAndFeel(ActionEvent e) {
-        Application.changeTheme(UIManager.getSystemLookAndFeelClassName());
+    public void userSelected(User user) {
+        currentUser = user;
+        menuActions.getDeleteUsersAction().setEnabled(true);
+        menuActions.getEditUsersAction().setEnabled(true);
     }
 
     @Override
-    public void onSetMetalLookAndFeel(ActionEvent e) {
-        Application.changeTheme("javax.swing.plaf.metal.MetalLookAndFeel");
+    public void userAction(User user) {
+        userSelected(user);
+        showEditForm(user);
     }
 
     @Override
-    public void onSetMotifLookAndFeel(ActionEvent e) {
-        Application.changeTheme("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+    public void cancel() {
+        showAllUsers();
+    }
+
+    @Override
+    public void success(User user) {
+        currentUser = user;
+        showAllUsers();
+    }
+
+    private void showEditForm(User user) {
+        if (contentPane.getComponentCount() > 1) {
+            contentPane.remove(1);
+        }
+
+        UserEdit userEdit = new UserEdit(this);
+        userEdit.setUser(user);
+
+        contentPane.add(userEdit.getRootPanel(), BorderLayout.CENTER);
+        pack();
+    }
+
+    private void showAllUsers() {
+        if (contentPane.getComponentCount() > 1) {
+            contentPane.remove(1);
+        }
+
+        currentUser = null;
+
+        UsersForm usersForm = new UsersForm(this);
+        menuActions.getShowUsersAction().setEnabled(false);
+        contentPane.add(usersForm.getUsersPanel(), BorderLayout.CENTER);
+        pack();
     }
 }
