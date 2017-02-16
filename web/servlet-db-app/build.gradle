@@ -21,21 +21,19 @@ repositories {
 
 apply plugin: 'java'
 apply plugin: 'war'
-apply plugin: 'appengine'
 apply plugin: 'org.akhikhl.gretty'
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 dependencies {
-    appengineSdk 'com.google.appengine:appengine-java-sdk:+'
-    compile 'com.google.appengine:appengine:+'
-    providedCompile 'javax.servlet:servlet-api:2.5'
-}
+    compile 'javax.servlet:servlet-api:2.5'
+    compile 'javax.servlet:jstl:1.2'
 
-appengine {
-    httpPort = 8090
-    downloadSdk = true
+    compileOnly 'org.projectlombok:lombok:1.16.12'
+
+    compile 'org.hibernate:hibernate-core:5.2.6.Final'
+    compile 'mysql:mysql-connector-java:6.0.5'
 }
 
 gretty {
