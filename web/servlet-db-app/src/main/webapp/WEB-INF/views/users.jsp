@@ -11,14 +11,23 @@
 </head>
 <body>
 <div class="container">
-    <h2>
+    <h1 class="page-header">
         Пользователи
-    </h2>
+    </h1>
+    <div class="container-fluid controls-bar">
+        <div class="row">
+            <div class="text-right">
+                <a href="" class="btn btn-primary">Добавить</a>
+            </div>
+        </div>
+    </div>
+
     <table class="table table-bordered">
         <thead>
         <tr>
             <th>Имя</th>
             <th>Возраст</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -26,6 +35,15 @@
             <tr>
                 <td>${user.name}</td>
                 <td>${user.age}</td>
+                <td class="controls">
+                    <a href="/users/${user.id}/edit" class="btn btn-default btn-sm">
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                    </a>
+                    <a href="/users/${user.id}/delete" class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </a>
+                </td>
+            </tr>
         </c:forEach>
         </tbody>
     </table>

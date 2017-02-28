@@ -25,8 +25,8 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
-build
-.gradle
-gradle
+build/
+.gradle/
+gradle/
 gradlew
 gradlew.bat
