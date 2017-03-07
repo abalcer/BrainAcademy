@@ -3,4 +3,5 @@ include 'simple-servlet'
 include 'gae-simple'
 include 'servlet-db-app'
 include 'spring-web'
+include 'spring-db-web'
 

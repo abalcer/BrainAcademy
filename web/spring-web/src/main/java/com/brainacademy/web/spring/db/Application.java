@@ -1,4 +1,4 @@
-package com.brainacademy.web.spring;
+package com.brainacademy.web.spring.db;
 
 
 import org.springframework.boot.SpringApplication;
