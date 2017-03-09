@@ -1,9 +1,15 @@
-package com.brainacademy.web.spring.db;
+package com.brainacademy.gui.app;
 
 
-import org.springframework.boot.SpringApplication;
+import com.brainacademy.gui.app.ui.MainFrame;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -13,18 +19,26 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import java.util.Properties;
+
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import javax.swing.SwingUtilities;
 
 @SpringBootApplication
-@EnableJpaRepositories("com.brainacademy.web.spring.db.repository")
+@EnableJpaRepositories("com.brainacademy.gui.app.repository")
 @EnableTransactionManagement
-public class Application {
+@EnableAutoConfiguration
+public class Application
+        implements CommandLineRunner {
+
+    @Autowired
+    private ApplicationContext springContainer;
 
     @Bean
     public DataSource dataSource() {
         return DataSourceBuilder.create()
-                .url("jdbc:mysql://localhost:3306/users")
+                .url("jdbc:mysql://localhost:3306/airlines")
                 .driverClassName("com.mysql.jdbc.Driver")
                 .type(DriverManagerDataSource.class)
                 .username("root")
@@ -37,7 +51,8 @@ public class Application {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(dataSource());
         entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        entityManagerFactoryBean.setPackagesToScan("com.brainacademy.web.spring.db.model");
+        entityManagerFactoryBean.setJpaProperties(hibernateProperties());
+        entityManagerFactoryBean.setPackagesToScan("com.brainacademy.gui.app.model");
         return entityManagerFactoryBean;
     }
 
@@ -48,8 +63,27 @@ public class Application {
         return transactionManager;
     }
 
-
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        new SpringApplicationBuilder(Application.class)
+                .headless(false)
+                .build()
+                .run(args);
+    }
+
+    @Override
+    public void run(String... args)
+            throws Exception {
+        SwingUtilities.invokeLater(() -> {
+            MainFrame mainFrame = (MainFrame) springContainer.getBean("mainFrame");
+            mainFrame.setVisible(true);
+        });
+    }
+
+    private Properties hibernateProperties() {
+        Properties properties = new Properties();
+        properties.put("hibernate.show_sql", true);
+        properties.put("hibernate.format_sql", true);
+        properties.put("hibernate.hbm2ddl.auto", "update");
+        return properties;
     }
 }
