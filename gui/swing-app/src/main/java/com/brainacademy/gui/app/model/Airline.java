@@ -6,7 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Airline {
+public class Airline
+        implements Comparable<Airline> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -77,5 +78,18 @@ public class Airline {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
+    @Override
+    public int compareTo(Airline airline) {
+        if (airline == null) {
+            return 1;
+        }
+        return name != null ? name.compareTo(airline.name) : -1;
     }
 }

@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Airport {
+public class Airport implements Comparable<Airport> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -64,5 +64,18 @@ public class Airport {
 
     public void setIcao(String icao) {
         this.icao = icao;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
+    @Override
+    public int compareTo(Airport airport) {
+        if(airport == null) {
+            return 1;
+        }
+        return name != null ? name.compareTo(airport.name) : -1;
     }
 }

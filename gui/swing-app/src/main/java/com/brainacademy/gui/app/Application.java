@@ -74,13 +74,13 @@ public class Application
             throws Exception {
         SwingUtilities.invokeLater(() -> {
             MainFrame mainFrame = (MainFrame) springContainer.getBean("mainFrame");
-            mainFrame.setVisible(true);
+            mainFrame.showForm();
         });
     }
 
     private Properties hibernateProperties() {
         Properties properties = new Properties();
-        properties.put("hibernate.show_sql", false);
+        properties.put("hibernate.show_sql", true);
         properties.put("hibernate.format_sql", true);
         properties.put("hibernate.hbm2ddl.auto", "update");
         return properties;

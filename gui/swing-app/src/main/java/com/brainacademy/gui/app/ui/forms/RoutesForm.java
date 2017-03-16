@@ -2,46 +2,46 @@ package com.brainacademy.gui.app.ui.forms;
 
 import com.brainacademy.gui.app.model.Route;
 import com.brainacademy.gui.app.repository.RouteRepository;
+import com.brainacademy.gui.app.ui.dialogs.AddRouteDialog;
 import com.brainacademy.gui.app.ui.dialogs.WaitDialog;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 
-import org.apache.logging.log4j.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
 import java.util.concurrent.CancellationException;
 
+import javax.swing.AbstractAction;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
 @Component
 public class RoutesForm
-        extends JPanel {
+        extends BaseForm {
 
     private static final Logger LOG = LoggerFactory.getLogger(RoutesForm.class);
 
     @Autowired
     private RouteRepository routeRepository;
 
+    @Autowired
+    private AddRouteDialog addRouteDialog;
+
     private JPanel mainPanel;
-    private JTextField textField1;
     private JTable table1;
     private RoutesTableModel routesTableModel;
 
@@ -54,31 +54,6 @@ public class RoutesForm
         this.setLayout(new GridLayout());
         this.setBorder(new EmptyBorder(12, 12, 12, 12));
         this.add($$$getRootComponent$$$());
-
-        textField1.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                doFilterUpdate();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                doFilterUpdate();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                doFilterUpdate();
-            }
-        });
-    }
-
-    private void doFilterUpdate() {
-        String text = "%" + textField1.getText() + "%";
-        if (worker != null) {
-            worker.cancel(true);
-        }
-        updateData(text, false);
     }
 
 
@@ -96,17 +71,14 @@ public class RoutesForm
         waitDialog.setLocationRelativeTo(parentFrame);
     }
 
-    public void updateData(String filter, boolean showWaitingDialog) {
+    @Override
+    public void updateData() {
 
         worker = new SwingWorker<Iterable<Route>, Integer>() {
             @Override
             protected Iterable<Route> doInBackground()
                     throws Exception {
-                if (Strings.isEmpty(filter)) {
-                    return routeRepository.findAll();
-                } else {
-                    return routeRepository.findBySrcAirportName(filter);
-                }
+                return routeRepository.findAll();
             }
 
             @Override
@@ -129,10 +101,34 @@ public class RoutesForm
             }
         };
         worker.execute();
+        waitDialog.setVisible(true);
+    }
 
-        if (showWaitingDialog) {
-            waitDialog.setVisible(true);
-        }
+    @Override
+    protected void initActions() {
+        actions.add(new AbstractAction("Add") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addRouteDialog.setLocationRelativeTo(parentFrame);
+                addRouteDialog.setVisible(true);
+
+                updateData();
+            }
+        });
+
+        actions.add(new AbstractAction("Search") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        actions.add(new AbstractAction("Remove") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
     }
 
     /**
@@ -144,12 +140,9 @@ public class RoutesForm
     private void $$$setupUI$$$() {
         createUIComponents();
         mainPanel = new JPanel();
-        mainPanel.setLayout(new GridLayoutManager(2, 1, new Insets(0, 0, 0, 0), -1, -1));
-        textField1 = new JTextField();
-        textField1.setText("");
-        mainPanel.add(textField1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        mainPanel.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
         final JScrollPane scrollPane1 = new JScrollPane();
-        mainPanel.add(scrollPane1, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        mainPanel.add(scrollPane1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         scrollPane1.setViewportView(table1);
     }
 
