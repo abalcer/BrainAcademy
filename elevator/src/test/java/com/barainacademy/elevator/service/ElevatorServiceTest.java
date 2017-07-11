@@ -1,15 +1,16 @@
 package com.barainacademy.elevator.service;
 
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import com.barainacademy.elevator.model.Elevator;
+import com.barainacademy.elevator.model.House;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import com.barainacademy.elevator.model.Elevator;
-import com.barainacademy.elevator.model.House;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 
 public class ElevatorServiceTest {
 
@@ -69,7 +70,7 @@ public class ElevatorServiceTest {
         house.addElevator(elevator);
 
         int floor = elevatorService.moveTo(elevator, house.getTotalFloors() + 1);
-        assertEquals(- 1, floor);
+        assertEquals(-1, floor);
         assertEquals(oldFloor, elevator.getFloor());
     }
 

@@ -1,0 +1,8 @@
+include ':annotation', ':array-algorithm', ':atm',
+    ':design-patterns', ':elevator', ':exception', ':generic',
+    ':gui', ':homework1-4', ':homework1-5', ':io-streams',
+    ':jdbc', ':jdbc-gradle', ':labwork1-2-1', ':labwork1-2-2',
+    ':lesson1', ':lesson1-1', ':lesson1-3-1', ':music', ':nested-classes',
+    ':object-base', ':threads', ':web'
+include 'security'
+

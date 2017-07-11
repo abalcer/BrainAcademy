@@ -1,10 +1,10 @@
 package com.barainacademy.elevator.service;
 
-import java.util.Collections;
-import java.util.Comparator;
-
 import com.barainacademy.elevator.model.Elevator;
 import com.barainacademy.elevator.model.House;
+
+import java.util.Collections;
+import java.util.Comparator;
 
 public class ElevatorService {
     private House house;

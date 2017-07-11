@@ -1,0 +1,8 @@
+group 'com.brainacademy'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+dependencies {
+  testCompile 'junit:junit:4.12'
+}

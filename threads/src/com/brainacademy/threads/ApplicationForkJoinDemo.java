@@ -11,9 +11,9 @@ public class ApplicationForkJoinDemo {
 
 
     public static void main(String[] args) {
-        new ForkJoinPool().invoke(new Calc(0, TOTAL_POINTS));
-        //Double sum = new ForkJoinPool().invoke(new CalcSum(0, TOTAL_POINTS));
-        //System.out.println("Sum = " + sum);
+        //new ForkJoinPool().invoke(new Calc(0, TOTAL_POINTS));
+        Double sum = new ForkJoinPool().invoke(new CalcSum(0, TOTAL_POINTS));
+        System.out.println("Sum = " + sum);
 
     }
 

@@ -1,7 +1,6 @@
 package com.brainacademy;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Main {
@@ -24,30 +23,30 @@ public class Main {
         List<Doge> doges = new ArrayList<>();
         List<Kitty> kitties = new ArrayList<>();
 
-        add(doges, kitties);
-        add(animals, kitties);
+        //add(doges, kitties); //error
+        //add(animals, kitties); //error
 
-        add1(doges, kitties);
+        //add1(doges, kitties); //error
         add1(pets, kitties);
         add1(pets, doges);
         add1(animals, kitties);
         add1(animals, doges);
 
 
-        list1.add(new Kitty()); //error
-        list1.add(new Doge());  //error
-        list1.add(new Pet());   //error
-        list1.add(new Animal());//error
+        //list1.add(new Kitty()); //error
+        //list1.add(new Doge());  //error
+        //list1.add(new Pet());   //error
+        //list1.add(new Animal());//error
 
         list2.add(new Kitty());
         list2.add(new Doge());
         list2.add(new Pet());
-        list2.add(new Animal());//error
+        //list2.add(new Animal());//error
 
         list3.add(new Kitty());
         list3.add(new Doge());
         list3.add(new Pet());
-        list3.add(new Animal());//error
+        //list3.add(new Animal());//error
 
         Kitty kitty = (Kitty) list1.get(0);
         Doge doge = (Doge) list1.get(0);

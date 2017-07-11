@@ -38,7 +38,7 @@ public class Application
     @Bean
     public DataSource dataSource() {
         return DataSourceBuilder.create()
-                .url("jdbc:mysql://localhost:3306/flightdb2?&useSSL=false")
+                .url("jdbc:mysql://localhost:3306/flightdb2?&useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC")
                 .type(DriverManagerDataSource.class)
                 .username("root")
                 .password("123")
@@ -83,6 +83,7 @@ public class Application
         properties.put("hibernate.show_sql", true);
         properties.put("hibernate.format_sql", true);
         properties.put("hibernate.hbm2ddl.auto", "update");
+        properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
         return properties;
     }
 }
