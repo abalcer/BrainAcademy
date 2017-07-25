@@ -1,3 +1,5 @@
+package com.brainacademy.collection;
+
 import java.util.*;
 
 public class Main {

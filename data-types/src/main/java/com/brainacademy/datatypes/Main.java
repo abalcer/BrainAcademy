@@ -1,4 +1,4 @@
-package com.brainacademy.lesson1_3_1;
+package com.brainacademy.datatypes;
 
 public class Main {
 
