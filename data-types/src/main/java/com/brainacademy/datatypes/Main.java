@@ -7,6 +7,9 @@ public class Main {
         charVal = 10;
         charVal = '\u0123';
         //charVal = '10';
+        //charVal='𐍈';
+        charVal = '✌';
+
 
         byte byteVal;
         byteVal = 1;
@@ -55,8 +58,7 @@ public class Main {
         intVal = 10;
         intVal = 0b1000;
         intVal = 07123;
-        intVal = 0x123AF;
-
+        intVal = 0x12_3AF;
 
         byteVal = (byte) intVal;
         floatVal = intVal;
@@ -74,33 +76,8 @@ public class Main {
         intVal = (int) longVal;
 
 
-        Integer intObj = new Integer(20);
-        intObj = Integer.valueOf("20");
-        intObj = Integer.valueOf(20);
-        intObj = 20;
-
-        intObj = intVal;
-        intVal = intObj;
-
-        intObj = null;
-
-        intObj = new Integer(10);
-        Integer intObj1 = new Integer(10);
-
-        System.out.println(intObj == intObj1);
-        System.out.println(intObj.equals(intObj1));
-
         boolean bool = false;
         bool = true;
-        bool = Boolean.valueOf("false");
-
-        Boolean boolObj = new Boolean(false);
-        boolObj = bool;
-        bool = boolObj;
-
-        boolObj  = null;
-
-
 
         System.out.println("Show all: " + intVal + ", " + bool + ", " + longVal + ", " + Integer.toHexString(intVal));
     }

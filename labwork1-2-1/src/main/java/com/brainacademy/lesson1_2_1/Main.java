@@ -1,3 +1,5 @@
+package com.brainacademy.lesson1_2_1;
+
 public class Main {
     private static void example2() {
         String a = "  ***\n"
