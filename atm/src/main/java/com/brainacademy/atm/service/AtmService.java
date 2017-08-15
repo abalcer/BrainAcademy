@@ -1,11 +1,9 @@
 package com.brainacademy.atm.service;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.brainacademy.atm.model.Atm;
 import com.brainacademy.atm.model.Card;
-import com.brainacademy.atm.model.Client;
+
+import java.util.HashMap;
 
 public class AtmService {
     private final Atm atm = new Atm();
@@ -37,7 +35,7 @@ public class AtmService {
             }
 
             if (currentCard.getBalance() <= withdrawСash) {
-                return 0;
+                withdrawСash = currentCard.getBalance();
             }
 
             double totalDailyCash = dailyCash.containsKey(currentCard) ? dailyCash.get(currentCard) : 0;
@@ -56,7 +54,11 @@ public class AtmService {
     }
 
 
-    public double putCash(Card card, double cash) {
+    public double putCash(double cash) {
+        if (currentCard != null) {
+            currentCard.setBalance(cash);
+            return cash;
+        }
         return 0;
     }
 
