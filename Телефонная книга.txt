@@ -1,0 +1,81 @@
+import com.sun.javafx.collections.MappingChange; // Библиотека конкретной коллекции.
+import com.sun.javafx.collections.*; // Подключение всех коллекций
+
+import java.util.Arrays;
+import java.util.Scanner;
+import java.util.*;
+import java.io.*;
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("ТЕЛЕФОННАЯ КНИГА");
+        Map<String, String> map = new HashMap<String, String>(); // создаем коллекцию контактов
+        Scanner sc = new Scanner(System.in); // создали сканнер
+
+        byte runValue = 1; // Изначальное положительное условие для цикла всей программы
+        while(runValue == 1) { // цикл всей программы
+            System.out.println("желаете сохранить номер или найти (сохранить - 0, найти - 1)");
+            byte num = sc.nextByte(); // выбор сохранить/найти котакт
+
+            if(num == 0) {  // сохранение данных
+                byte x = 1; // Изначальное положительное условие для цикла добавления контактов
+                while (x == 1) { // цикл добавления контактов
+                    String number = enterValue("Введите номер: "); // enterValue обращение к функции содержащей Scanner
+                    String name = enterValue("Введите имя: ");
+
+                    map.put(name, number); // находясь в цикле, каждый раз добавляется map.put с новыми данными
+
+                    System.out.print("Желаете добавить контакт? (нет - 0, да - 1)");
+                    x = sc.nextByte(); // Создание условия для повторения цикла добавления контактов
+                };
+            }
+            else if(num == 1){ // поиск данных
+                /* isEmpty функция массива/коллекции определяющая наличие данных соответствующих запросу
+                 если же соответсвующих данных нет, дает понять что коллекция пуста*/
+                if(map.isEmpty()) {
+                    System.out.println("Ваш список пуст");
+                }
+                else {
+                    System.out.print("Какими данными вы располагаете? Номер - введите 0, имя - введите 1: ");
+                    byte answer = sc.nextByte();
+
+                    Object foundRecord = null;
+                    if (answer == 1) {
+                        String name = enterValue("Введите имя: ");
+                        foundRecord = map.get(name);
+                    }
+                    else if (answer == 0) {
+                        String phone = enterValue("Введите номер: ");
+                        foundRecord = getKeyFromValue(map, phone);
+                    }
+
+                    if(foundRecord != null) {
+                        System.out.println(foundRecord);
+                    }
+                    else {
+                        System.out.println("Ничего не найдено!!!");
+                    }
+                }
+            }
+            System.out.print("(Продолжить - 1, Выйти из программы - 0)");
+            runValue = sc.nextByte();
+        }
+        sc.close();
+    }
+
+    public static String enterValue(String title) { // вынесли Scanner в отдельный функцию
+        Scanner sc = new Scanner(System.in);
+        System.out.print(title);
+        return sc.next(); // возвращаем введенные данные
+    }
+
+    public static Object getKeyFromValue(Map hm, Object value) { // функция поиска ключа по значению из коллекции
+        // выполняет поиск соответствующих данных по всей коллекции
+        for (Object o : hm.keySet()) {
+            if (hm.get(o).equals(value)) {
+                return o;
+            }
+        }
+        return null;
+    }
+}
