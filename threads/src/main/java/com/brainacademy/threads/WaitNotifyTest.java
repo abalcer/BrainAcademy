@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class WaitNotifyTest {
-    private static ArrayList<Integer> list = new ArrayList<>();
+    private static final ArrayList<Integer> list = new ArrayList<>();
 
     public static void main(String[] args) {
         Thread thread1 = new Thread1();
@@ -53,7 +53,7 @@ public class WaitNotifyTest {
             }
 
             synchronized (list) {
-                list.notifyAll();
+                list.notify();
             }
         }
     }

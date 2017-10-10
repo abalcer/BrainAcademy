@@ -2,6 +2,7 @@ package com.brainacademy.threads;
 
 public class SynchronizedTest {
     public static Integer val = 0;
+    private static final Object lock = new Object();
 
     public static void main(String[] args) {
 //        new NonSynchronizedThread("NonSync1").start();
@@ -28,7 +29,7 @@ public class SynchronizedTest {
 
         @Override
         public void run() {
-            synchronized (SynchronizedThread.class) {
+            synchronized (lock) {
                 changeVal();
             }
         }
